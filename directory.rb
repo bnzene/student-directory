@@ -1,8 +1,3 @@
-def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
-end
-
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -20,6 +15,11 @@ def input_students
   end
   # return the array of students
   students
+end
+
+def print_header
+  puts "The students of Villains Academy"
+  puts "-------------"
 end
 
 def print(students)
