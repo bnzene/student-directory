@@ -1,26 +1,38 @@
+@students = []
+
 def interactive_menu
-  # create an empty array
-  @students = []
   loop do
-  # 1. print menu and ask user to input choice
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def print_menu
   puts "Option 1: Input student details."
   puts "Option 2: Show student details."
   puts "Option 9: Exit"
-  # 2. read user input and save to a variable
-  selection = gets.chomp
-  # 3. do user selection
-    case selection
+end
+
+def process(selection)
+  case selection
     when "1"
-      # input student details
-      @students = input_students
+      input_students
     when "2"
-      # show student details
-      print_list(@students)
+      print_students_list
     when "9"
       exit
     else
       puts "I don't understand; try again."
-    end
+  end
+end
+
+def show_students
+  if @students.length > 0
+    print_header
+    print_by_cohort(students)
+    print_footer(students)
+  else
+    puts "No information available."
   end
 end
 
@@ -40,7 +52,6 @@ def input_students
     puts "Now we have #{@students.count} student#{'s' unless @students.count == 1}" # append 's' to student if number exceeds 1
     details = gets.gsub(/\s/, "").split(',') # ask for more input until loop breaks
   end
-  @students # return the array of students
 end
 
 def print_header
@@ -48,7 +59,7 @@ def print_header
   puts "-------------"
 end
 
-def print(students) # print in order of entry
+def print_students_list # print in order of entry
   @students.each_with_index {|student, n|  puts "#{n+1}: #{student[:name]}, (#{student[:cohort]} cohort)"}
 end
 
@@ -72,19 +83,8 @@ def print_by_cohort(students) # print by cohort
   end
 end
 
-# finally, we print the total
 def print_footer(names)
   puts "Overall, we have #{names.count} great student#{'s' unless names.count == 1}." # append 's' to student if number exceeds 1
-end
-
-def print_list(students) # created a method which calls print_header, print_by_cohort and print_footer only if at least one student is entered in the list
-  if @students.length > 0
-    print_header
-    print_by_cohort(students)
-    print_footer(students)
-  else
-    puts "No information available."
-  end
 end
 
 interactive_menu
